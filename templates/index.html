@@ -30,13 +30,21 @@
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
 							<div class="header_content_inner d-flex flex-row align-items-end justify-content-start">
-								<div class="logo"><a href="index.html">Travello</a></div>
+								<div class="logo"><a href="/">Travello</a></div>
 								<nav class="main_nav">
 									<ul class="d-flex flex-row align-items-start justify-content-start">
-										<li class="active"><a href="index.html">Home</a></li>
-										<li><a href="about.html">About us</a></li>
-										<li><a href="#">Services</a></li>
-										<li><a href="news.html">News</a></li>
+										<li class="active"><a href="/">Home</a></li>
+
+										{% if user.is_authenticated %}
+										<li><a href="#">Hello, {{ user.first_name }}</a></li>
+										<li><a href="accounts/logout">Logout</a></li>
+
+										{% else %}								
+										<li><a href="accounts/register">Register</a></li>
+										<li><a href="accounts/login">Log In</a></li>
+
+										{% endif %}
+								
 										<li><a href="contact.html">Contact</a></li>
 									</ul>
 								</nav>
@@ -56,7 +64,7 @@
 			<div class="header_social d-flex flex-row align-items-center justify-content-start">
 				<ul class="d-flex flex-row align-items-start justify-content-start">
 					<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-					<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+					<li><a href="https://www.facebook.com/MdMehediHSharif/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 					<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
 					<li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
 					<li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
@@ -79,10 +87,16 @@
 			</div>
 			<div class="menu_content">
 				<ul>
-					<li><a href="inex.html">Home</a></li>
-					<li><a href="about.html">About us</a></li>
-					<li><a href="#">Services</a></li>
-					<li><a href="news.html">News</a></li>
+					<li><a href="/">Home</a></li>
+					{% if user.is_authenticated %}
+					<li><a href="#">Hello, {{ user.first_name }}</a></li>
+					<li><a href="accounts/logout">Logout</a></li>
+
+					{% else %}								
+					<li><a href="accounts/register">Register</a></li>
+					<li><a href="accounts/login">Log In</a></li>
+
+					{% endif %}
 					<li><a href="contact.html">Contact</a></li>
 				</ul>
 			</div>
@@ -284,8 +298,12 @@
 							<!-- Destination -->
 							<div class="destination item">
 								<div class="destination_image">
-									<img src="{{baseUrl}}/{{dest.img}}" alt="">
+									<img src="{{dest.img.url}}" alt="">
+									
+									{% if dest.offer %}
 									<div class="spec_offer text-center"><a href="#">Special Offer</a></div>
+									{% endif %}
+								
 								</div>
 								<div class="destination_content">
 									<div class="destination_title"><a href="destinations.html">{{dest.name}}</a>
